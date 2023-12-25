@@ -1,0 +1,31 @@
+import { test, expect } from '@playwright/test';
+
+test('Record demo test', async ({ page }) => {
+  await page.goto('https://demo.testim.io/');
+  await page.getByRole('button', { name: 'Log in' }).click();
+  await page.locator('#login input[type="text"]').click();
+  await page.locator('#login input[type="text"]').fill('pablo');
+  await page.locator('#login input[type="text"]').press('Tab');
+  await page.locator('input[type="password"]').fill('test1234');
+  await page.getByRole('navigation').getByRole('button', { name: 'Log in' }).click();
+  await expect(page.getByRole('button', { name: 'Hello, John' })).toBeVisible();
+  await page.getByRole('button', { name: 'Select Destination' }).click();
+  await page.getByRole('heading', { name: 'Madan' }).click();
+  await page.locator('div').filter({ hasText: /^\$1183\.46Book$/ }).getByRole('button').click();
+  await page.locator('div').filter({ hasText: /^Name0\/30$/ }).getByRole('textbox').click();
+  await page.locator('div').filter({ hasText: /^Name0\/30$/ }).getByRole('textbox').fill('Pablo');
+  await page.locator('input[type="email"]').fill('pablo@test.com');
+  await page.locator('div').filter({ hasText: /^Social Security Number$/ }).getByRole('textbox').click();
+  await page.locator('div').filter({ hasText: /^Social Security Number$/ }).getByRole('textbox').fill('123-45-6789');
+  await page.locator('input[type="tel"]').click();
+  await page.locator('input[type="tel"]').fill('3054569988');
+  await page.locator('label').filter({ hasText: 'I agree to the terms and' }).locator('div').click();
+  await page.getByRole('button', { name: 'Pay now' }).click();
+  await expect(page.getByRole('heading', { name: 'Madan Temperatures' })).toBeVisible();
+  await page.getByRole('button', { name: 'Hello, John' }).click();
+  await page.getByRole('link', { name: 'Log out' }).click();
+  await expect(page.getByRole('button', { name: 'Log in' })).toBeVisible();
+  await page.getByRole('heading', { name: 'Space & Beyond' }).click();
+  await expect(page.getByRole('button', { name: 'Select Destination' })).toBeVisible();
+  await page.close();
+});
