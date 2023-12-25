@@ -1,6 +1,6 @@
 import {test, expect} from '@playwright/test'
 
-test.describe('Open URL and validate the title', () => {
+test.describe('Open URL and Validate the title', () => {
 
 
     test('Navigate to the URl', async ({ page }) => {
