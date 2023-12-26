@@ -2,7 +2,7 @@ import { expect } from '@playwright/test';
 import { Page1 } from './Page1';
 import { BasePageChecker } from '../base/BasePageChecker';
 
-export class Page1Checker extends BasePageChecker {
+export class Page1Checker extends BasePageChecker{
     readonly page: Page1;
     readonly WAIT_30_SECONDS: number = 30000;
 
@@ -10,4 +10,9 @@ export class Page1Checker extends BasePageChecker {
         super(page);
         this.page = page;
     }
+
+    async verifyTitleIsVisible() {
+        await expect(await this.page.pagetitle).toBeVisible({ timeout: this.WAIT_30_SECONDS });
+    }
+
 }
