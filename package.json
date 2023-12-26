@@ -1,7 +1,7 @@
 {
   "name": "playwright_automation",
   "version": "1.0.0",
-  "description": "",
+  "description": "Peer programming Challenge",
   "main": "index.js",
   "scripts": {},
   "keywords": [],
@@ -10,5 +10,6 @@
   "devDependencies": {
     "@playwright/test": "^1.40.1",
     "@types/node": "^20.10.5"
+    
   }
 }

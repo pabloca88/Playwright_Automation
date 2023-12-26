@@ -1,32 +1,27 @@
-import { test, expect , Page} from '@playwright/test';
-import { Page1} from '../pages/Page1/Page1';
-import { Page2 } from '../pages/Page2/Page2';
+import { test, expect , type Page} from '@playwright/test';
+import { LandingPage} from '../pages/Page1/LandingPage';
+import { LandingPageChecker } from '../pages/Page1/LandingPageChecker';
+
+test.beforeEach(async ({ page })=> {
+    await page.goto('https://demo.testim.io');
+})
+
+    let page: Page;
+    let landingPage: LandingPage;
+    let lantingPageChecker: LandingPageChecker;
 
 test.describe('Playwright coding challenge', () => {
-    let page1: Page1;
-    let page: Page;
-    //let page2: Page2;
-
-    test('Pruebo el click al boton login', async ({ page }) => {
-
-        await test.step('navego a la web de testim', async () => {
-            await page.goto('https://demo.testim.io/');
-        })
-
+    test('Given the user Navigates to Testim and click on Login Button', async ({ page }) => {
+            
         await test.step('Valido que el titulo es el correcto', async () => {
-            await page1.checker.verifyTitleIsVisible();
+            //await landingPage.checker.verifyTitleIsVisible();
         })
-        
-        
+                
         await test.step('hago click en el boton Login', async () => {
-            await page1.clickOnLoginButton();
+            await page.getByRole('button', { name: 'Log in' }).click();
+            //await landingPage.clickOnLoginButton();
         })
+    });
         
-        
-        
-    })
-    
 
-    
-    
 });

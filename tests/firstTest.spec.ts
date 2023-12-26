@@ -4,7 +4,7 @@ test.describe('Open URL and Validate the title', () => {
 
 
     test('Navigate to the URl', async ({ page }) => {
-        await page.goto('https://demo.testim.io/');
+        await page.goto('https://demo.testim.io');
         await expect(page).toHaveTitle('Space & Beyond | Testim.io demo');
     });
 
