@@ -11,8 +11,17 @@ export class LandingPageChecker extends BasePageChecker{
         this.page = page;
     }
 
+    //MODIFICAR VALOR A VALIDAR
     async verifyTitleIsVisible() {
-        await expect(this.page.pagetitle).toBeVisible({ timeout: this.WAIT_30_SECONDS });
+        await expect(this.page.pagetitle).toBeVisible();
+    }
+
+    async verifyLoginButtonIsVisible() {
+        await expect(this.page.loginButton).toBeVisible();
+    }
+
+    async selectDestinationButtonIsVisible() {
+        await expect(this.page.destinationButton).toBeVisible();
     }
 
 }

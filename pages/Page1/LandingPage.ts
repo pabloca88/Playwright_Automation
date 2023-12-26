@@ -18,7 +18,11 @@ export class LandingPage extends BasePage {
     }
 
     get pagetitle(): Locator {
-        return this.page.getByText('Space & Beyond | Testim.io demo');
+        return this.page.getByRole('heading', { name: 'Space & Beyond' })
+    }
+
+    get destinationButton(): Locator {
+        return this.page.getByRole('button', { name: 'Select Destination' });
     }
 
     async clickOnLoginButton() {
