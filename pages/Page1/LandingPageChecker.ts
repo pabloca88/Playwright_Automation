@@ -11,7 +11,6 @@ export class LandingPageChecker extends BasePageChecker{
         this.page = page;
     }
 
-    //MODIFICAR VALOR A VALIDAR
     async verifyTitleIsVisible() {
         await expect(this.page.pagetitle).toBeVisible();
     }

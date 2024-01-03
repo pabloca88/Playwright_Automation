@@ -35,6 +35,22 @@ test.describe('Feature: APIS ', async() => {
         expect(responseBody.createdAt).toBeTruthy(); 
         expect(response.status()).toBe(201);
     })
+
+    test('POST Request - create new user - Name error', async ({ request }) => {
+        const response = await request.post(`${baseUrl2}/users`, {
+        data: 
+            {
+                "name": "Pablo Fail", 
+                "job": "QA test"
+            }
+    });
+        const responseBody = JSON.parse(await response.text());
+        console.log(responseBody)
+        expect.soft(responseBody.name).toBe("Pablo");
+        expect(responseBody.job).toBe("QA test");
+        expect(responseBody.createdAt).toBeTruthy(); 
+        expect(response.status()).toBe(201);
+    })
     
 
 
