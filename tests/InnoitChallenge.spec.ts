@@ -126,10 +126,8 @@ test.describe('Innoit - QA AUTOMATION EXERCISE - Login Page', () => {
 
 test.describe('Innoit - QA AUTOMATION EXERCISE - Tables Page', () => {
     
-    test.beforeEach(async ({ page })=> {
+    test('Ordenar una de las tablas de mayor a menor por cualquier columna', async ({ page }) => {
         await page.goto(`${baseUrl}/tables`);
-    });
-    test('ordenar una de las tablas de mayor a menor por cualquier columna', async ({ page }) => {
         const table =  page.locator('#table1');
 
         const lastNamesHeader = page.locator('#table1').getByText('Last Name');
