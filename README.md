@@ -1,5 +1,3 @@
-# Playwright_Automation
-
 # "Playwright_Automation" Coding Automation Challenge by Pablo M.Calvano
 The following is a Playwright + Typescript test execution which has been developed with simplicity in mind. Its purpose is to follow the guidelines from the code challenge:
 
