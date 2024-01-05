@@ -128,7 +128,6 @@ test.describe('Innoit - QA AUTOMATION EXERCISE - Tables Page', () => {
     
     test.beforeEach(async ({ page })=> {
         await page.goto(`${baseUrl}/tables`);
-        await page.pause();
     });
     test('ordenar una de las tablas de mayor a menor por cualquier columna', async ({ page }) => {
         const table =  page.locator('#table1');
