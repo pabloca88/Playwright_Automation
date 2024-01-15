@@ -1,7 +1,20 @@
 <h1 align="center">Hi 👋, I'm Pablo Calvano</h1>
-<h3 align="center">QA Automation Engineer</h3>
+<h3 align="center">I´m a QA Automation Engineer</h3>
 
-- 🔭 I’m currently working on **this Coding Challenge**
+In order to install Playwright you will need to follow this steps:
+Get started by installing Playwright using npm or yarn.
+ - Using NPM: npm init playwright@latest / YARN: yarn create playwright
+
+Run the install command and select the following to get started:
+
+  - Choose between TypeScript or JavaScript (default is TypeScript)
+  - Name of your Tests folder (default is tests or e2e if you already have a tests folder in your project)
+  - Install Playwright browsers (default is true)  
+
+The "playwright.config" is where you can add configuration for Playwright including modifying which browsers you would like to run Playwright on. If you are running tests inside an already existing project then dependencies will be added directly to your "package.json".
+
+->  To run the tests please use "npx playwright test" on the terminal 
+
 
 <h3 align="left">Connect with me:</h3>
 <p align="left">
@@ -9,4 +22,4 @@
 </p>
 
 <h3 align="left">Languages and Tools:</h3>
-<p align="left"> <a href="https://www.java.com" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/java/java-original.svg" alt="java" width="40" height="40"/> </a> <a href="https://www.typescriptlang.org/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/typescript/typescript-original.svg" alt="typescript" width="40" height="40"/> </a> </p>
+<p align="left"> <a href="https://git-scm.com/" target="_blank" rel="noreferrer"> <img src="https://www.vectorlogo.zone/logos/git-scm/git-scm-icon.svg" alt="git" width="40" height="40"/> </a> <a href="https://www.typescriptlang.org/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/typescript/typescript-original.svg" alt="typescript" width="40" height="40"/> </a> </p>
