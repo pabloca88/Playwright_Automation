@@ -4,5 +4,15 @@ node_modules/
 /playwright-report/
 /blob-report/
 /playwright/.cache/
+
+# Macs are dumb
 .DS_Store
 **/.DS_Store
+
+# Optional npm cache directory
+.npm
+.npmrc
+
+*.png
+playwright-results.json
+playwright-results.xml
