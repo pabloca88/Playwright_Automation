@@ -1,90 +1,105 @@
-import { defineConfig, devices, PlaywrightTestConfig } from '@playwright/test';
+import { defineConfig, devices } from '@playwright/test';
 
 /**
- * Read environment variables from file.
- * https://github.com/motdotla/dotenv
+ * Load environment variables from .env (optional but recommended).
+ * Make sure you have `dotenv` installed: npm install dotenv --save-dev
  */
-// require('dotenv').config();
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+require('dotenv').config();
+
+const isCI = !!process.env.CI;
 
 /**
- * See https://playwright.dev/docs/test-configuration.
+ * See https://playwright.dev/docs/test-configuration
  */
-const config: PlaywrightTestConfig = {
+export default defineConfig({
+  // Where Playwright looks for tests
   testDir: './tests',
-  /* Run tests in files in parallel */
-  fullyParallel: true,
-  /* Fail the build on CI if you accidentally left test.only in the source code. */
-  forbidOnly: !!process.env.CI,
-  /* Retry on CI only */
-  retries: process.env.CI ? 2 : 0,
-  /* Opt out of parallel tests on CI. */
-  workers: process.env.CI ? 1 : undefined,
-  /* Reporter to use. See https://playwright.dev/docs/test-reporters */
-  reporter: [
-    ['list', { printSteps: true }],
-    ['junit', { outputFile: 'playwright-results.xml' }],
-    //['playwright-html', { outputFile: 'test-results.html' }],
-    ['html', { open: 'never' }],
-  ],
-  //'html',
-  /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
-  use: {
-    /* Base URL to use in actions like `await page.goto('/')`. */
-    baseURL: 'https://ecommerce-playground.lambdatest.io/index.php?',
+  testMatch: ['**/*.spec.ts', '**/*.test.ts'],
 
-    /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
-    trace: 'on-first-retry',
-    headless: !!process.env.CI || false,
-    screenshot: 'only-on-failure',
-    video: 'retain-on-failure',
-    // Disable browser for API tests
-    browserName: undefined,
+  // Global timeouts
+  timeout: 30_000, // 30s per test
+  expect: {
+    timeout: 5_000, // 5s for expect() assertions
   },
 
-  /* Configure projects for major browsers */
+  // Parallelism & retries
+  fullyParallel: true,
+  forbidOnly: isCI,
+  retries: isCI ? 2 : 0,
+  workers: isCI ? 2 : undefined,
+
+  // Reporters for local + CI usage
+  reporter: [
+    ['list', { printSteps: true }],
+    ['junit', { outputFile: 'test-results/junit-results.xml' }],
+    ['html', { open: 'never', outputFolder: 'playwright-report' }],
+  ],
+
+  // Shared settings for all tests
+  use: {
+    /**
+     * Base URL for your AUT.
+     * Prefer using environment variables so you can easily switch between
+     * environments (DEV / QA / STAGE / PROD).
+     */
+    baseURL:
+      process.env.BASE_URL ||
+      'https://ecommerce-playground.lambdatest.io/index.php?',
+
+    headless: isCI ? true : false,
+    viewport: { width: 1366, height: 768 },
+    actionTimeout: 15_000,
+    navigationTimeout: 30_000,
+    ignoreHTTPSErrors: true,
+
+    // Artifacts
+    trace: 'on-first-retry',
+    screenshot: 'only-on-failure',
+    video: 'retain-on-failure',
+  },
+
+  // Configure projects for different browsers / devices
   projects: [
     {
       name: 'chromium',
       use: { ...devices['Desktop Chrome'] },
     },
-
-    // {
-    //   name: 'firefox',
-    //   use: { ...devices['Desktop Firefox'] },
-    // },
-
-    // {
-    //   name: 'webkit',
-    //   use: { ...devices['Desktop Safari'] },
-    // },
-
-    /* Test against mobile viewports. */
-    // {
-    //   name: 'Mobile Chrome',
-    //   use: { ...devices['Pixel 5'] },
-    // },
-    // {
-    //   name: 'Mobile Safari',
-    //   use: { ...devices['iPhone 12'] },
-    // },
-
-    /* Test against branded browsers. */
-    // {
-    //   name: 'Microsoft Edge',
-    //   use: { ...devices['Desktop Edge'], channel: 'msedge' },
-    // },
     {
-       name: 'Google Chrome',
-       use: { ...devices['Desktop Chrome'], channel: 'chrome' },
+      name: 'google-chrome',
+      use: { ...devices['Desktop Chrome'], channel: 'chrome' },
+    },
+    {
+      name: 'firefox',
+      use: { ...devices['Desktop Firefox'] },
+    },
+    {
+      name: 'webkit',
+      use: { ...devices['Desktop Safari'] },
+    },
+    {
+      name: 'mobile-chrome',
+      use: { ...devices['Pixel 5'] },
     },
   ],
 
-  /* Run your local dev server before starting the tests */
+  // Where Playwright stores traces, videos, screenshots, etc.
+  outputDir: 'test-results',
+
+  /**
+   * If you run against a local dev server, configure it here.
+   * Example:
+   * webServer: {
+   *   command: 'npm run start',
+   *   url: process.env.BASE_URL || 'http://127.0.0.1:3000',
+   *   reuseExistingServer: !isCI,
+   *   timeout: 120_000,
+   * },
+   */
   // webServer: {
   //   command: 'npm run start',
-  //   url: 'http://127.0.0.1:3000',
-  //   reuseExistingServer: !process.env.CI,
+  //   url: process.env.BASE_URL || 'http://127.0.0.1:3000',
+  //   reuseExistingServer: !isCI,
+  //   timeout: 120_000,
   // },
-};
-
-export default config;
+});

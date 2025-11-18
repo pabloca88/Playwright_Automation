@@ -1,19 +1,31 @@
+# Node
 node_modules/
-/test-results/
-/test-examples/
-/playwright-report/
-/blob-report/
-/playwright/.cache/
 
-# Macs are dumb
-.DS_Store
+# Playwright outputs
+test-results/
+playwright-report/
+blob-report/
+playwright/.cache/
+coverage/
+
+# Ignore Playwright screenshots and outputs only (not ALL pngs)
+test-results/**/*.png
+playwright-report/**/*.png
+
+# Mac system files
 **/.DS_Store
 
-# Optional npm cache directory
+# NPM cache
 .npm
 .npmrc
 
-*.png
+# Environment files
+.env
+.env.*
+
+# Ignore editor configs
+.vscode/
+
+# Playwright result exports
 playwright-results.json
 playwright-results.xml
-.qodo

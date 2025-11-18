@@ -1,44 +1,148 @@
-<h1 align="center">Hi 👋, I'm Pablo Calvano</h1>
-<h3 align="center">QA Automation Engineer | Playwright • TypeScript • CI/CD</h3>
+<h1 align="center">🚀 Playwright Automation Framework</h1>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/QA-Automation-blue?style=for-the-badge" />
-  <img src="https://img.shields.io/badge/Playwright-Testing-green?style=for-the-badge" />
-  <img src="https://img.shields.io/badge/TypeScript-blue?style=for-the-badge" />
-  <img src="https://img.shields.io/badge/Git-Version%20Control-orange?style=for-the-badge" />
+  <a href="https://github.com/pabloca88/Playwright_Automation/actions/workflows/playwright-ci.yml">
+    <img src="https://github.com/pabloca88/Playwright_Automation/actions/workflows/playwright-ci.yml/badge.svg" alt="Playwright CI">
+  </a>
 </p>
 
-Welcome to my Playwright automation repository! Below you’ll find everything you need to install, configure, and run Playwright smoothly.
-
-To get started, install Playwright using **npm** or **yarn**:
-
-- **Using NPM:** `npm init playwright@latest`  
-- **Using Yarn:** `yarn create playwright`
-
-Run the installation command and select the following options:
-
-  - Choose between **TypeScript** or **JavaScript** (default: TypeScript)  
-  - Select the name of your **tests folder** (default: `tests` or `e2e` if one already exists)  
-  - Confirm whether to **install Playwright browsers** (default: true)
-
-Your project’s configuration will be stored inside the **playwright.config** file, where you can adjust browser settings, test options, and other runtime parameters. If you run Playwright inside an existing project, all necessary dependencies will be added automatically to your `package.json`.
-
-➡️ **To execute the test suite, run:**  
-`npx playwright test`
-
-<h3 align="left">Connect with me:</h3>
-<p align="left">
-<a href="https://www.linkedin.com/in/pablocalvano/" target="blank">
-<img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/linked-in-alt.svg" alt="LinkedIn Profile" height="30" width="40" />
-</a>
+<p align="center">
+  End‑to‑end UI & API testing framework built with <strong>Playwright + TypeScript</strong>, following industry‑level structure and CI/CD best practices.
 </p>
 
-<h3 align="left">Languages and Tools:</h3>
-<p align="left">
-<a href="https://git-scm.com/" target="_blank" rel="noreferrer">
-  <img src="https://www.vectorlogo.zone/logos/git-scm/git-scm-icon.svg" alt="git" width="40" height="40"/>
-</a>
-<a href="https://www.typescriptlang.org/" target="_blank" rel="noreferrer">
-  <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/typescript/typescript-original.svg" alt="typescript" width="40" height="40"/>
-</a>
-</p>
+---
+
+## 🌟 Features
+
+- ✔️ **Cross-browser testing** (Chromium, Firefox, WebKit, Chrome)
+- ✔️ **Modern Page Object Model (POM)** structure
+- ✔️ **Showcase-ready clean test specs**
+- ✔️ **API testing** with retry & assertions
+- ✔️ **GitHub Actions CI/CD** (caching + artifacts + reporting)
+- ✔️ **HTML & JUnit reports**
+- ✔️ **Environment variable support via `.env`**
+- ✔️ **Reusable fixtures & session management** (ready for expansion)
+
+---
+
+## 📦 Prerequisites
+
+- **Node.js 18+**
+- npm or yarn
+- Optional: `.env` file for environments
+
+---
+
+## ⚙️ Installation
+
+```bash
+npm install
+npx playwright install --with-deps
+```
+
+---
+
+## 🧪 Running Tests
+
+```bash
+# Run all tests
+npx playwright test
+
+# Headed mode (debugging/local)
+npx playwright test --headed
+
+# Target browser
+npx playwright test --project=chromium
+
+# Open Playwright UI mode
+npx playwright test --ui
+
+# Run a single test file
+npx playwright test tests/addToCart.spec.ts
+```
+
+---
+
+## 🏗️ Project Structure
+
+```
+tests/
+├── addToCart.spec.ts       # E2E cart flow
+├── API.spec.ts             # REST API testing
+└── challenge.spec.ts       # UI interactions
+
+pages/
+├── homePage.ts
+├── loginPage.ts
+├── registerPage.ts
+└── specialHotPage.ts
+
+fixtures/
+└── (ready for session/auth fixtures)
+
+playwright.config.ts        # Strengthened configuration
+```
+
+---
+
+## 🔧 Configuration
+
+Use a `.env` file at the project root:
+
+```env
+BASE_URL=https://ecommerce-playground.lambdatest.io/index.php?
+REQRES_API_KEY=your-api-key-here
+```
+
+All test configuration (browsers, retries, traces, reports, CI settings) is defined in:
+
+```
+playwright.config.ts
+```
+
+---
+
+## 🤖 CI/CD with GitHub Actions
+
+This repository includes a full CI pipeline:
+
+- Runs on **push** & **pull_request** to `main`
+- Installs dependencies with **node_modules caching** for speed
+- Runs tests in **headless mode**
+- Uploads **HTML report & traces** as downloadable artifacts
+
+View the pipeline →  
+https://github.com/pabloca88/Playwright_Automation/actions
+
+---
+
+## 📊 Reports
+
+Generate and open the Playwright HTML report:
+
+```bash
+npx playwright show-report
+```
+
+Reports are also uploaded to GitHub Actions on every CI run.
+
+---
+
+## ⭐ Why This Repo Is Portfolio-Ready
+
+- Clean folder organization  
+- Realistic POM structure  
+- Strong TypeScript config  
+- CI pipeline included  
+- Maintains readability with `test.step()`  
+- Uses good automation patterns (uniqueness in test data, waits, assertions)
+
+---
+
+## 📄 License
+
+ISC
+
+---
+
+If you enjoy this project, consider starring ⭐ the repository!
