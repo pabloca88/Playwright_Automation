@@ -16,3 +16,4 @@ node_modules/
 *.png
 playwright-results.json
 playwright-results.xml
+.qodo

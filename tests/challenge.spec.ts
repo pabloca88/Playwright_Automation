@@ -1,4 +1,4 @@
-import {test, expect} from '@playwright/test'
+import {test, expect, Locator} from '@playwright/test'
 import { assert } from 'console';
 
 const baseUrl = 'https://the-internet.herokuapp.com';
@@ -125,51 +125,68 @@ test.describe('Innoit - QA AUTOMATION EXERCISE - Login Page', () => {
     });
 });
 
+const toCurrencyNumber = (value: string) => Number(value.replace(/[^0-9.]/g, ''));
+const sortDescendingThroughUI = async (
+    header: Locator,
+    dueCells: Locator,
+    expectedDescending: string[]
+) => {
+    for (let attempt = 0; attempt < 3; attempt += 1) {
+        await header.click();
+        const currentValues = await dueCells.allTextContents();
+        if (JSON.stringify(currentValues) === JSON.stringify(expectedDescending)) {
+            return currentValues;
+        }
+    }
+    throw new Error('Unable to sort column in descending order');
+};
+
 test.describe('Innoit - QA AUTOMATION EXERCISE - Tables Page', () => {
     
     test('Ordenar una de las tablas de mayor a menor por cualquier columna y validar el Due de la fila 2', async ({ page }) => {
         await page.goto(`${baseUrl}/tables`);
         
         const table = page.locator('#table1');
-        const lastNamesHeader =  await page.locator('#table1').getByText('Last Name');
-        const tableRow = page.locator("//table[@id='table1']/tbody[1]/tr/td[1]");
-        
-        // "Original Data" will have the Order of the table without sorting it, before the click
-        const originalData = await tableRow.allTextContents();
-        console.log("Original Data: "+ originalData);
-        
-        //"Order" will have the Original Data ordered by desc
-        const order = await originalData.sort();
-        console.log("Expecting Descending order: " + order );
+        const dueHeader = table.locator('thead th', { hasText: 'Due' });
+        const dueCells = table.locator('tbody tr td:nth-child(4)');
 
-        //User clicks on the headers table to sort
-        await lastNamesHeader.click();
-    
-        // After the click the Sorting changes to Sorting Down
-        const sortedList = await tableRow.allTextContents();
-        console.log("Expecting Desscending order after click: " + await tableRow.allTextContents())
-        
-        //Validate List is ordered
-        await expect(order).toEqual(sortedList);
+        const originalDueValues = await dueCells.allTextContents();
+        const expectedDescending = [...originalDueValues].sort(
+            (a, b) => toCurrencyNumber(b) - toCurrencyNumber(a)
+        );
 
-        //Validate the second row´s Due column
-        const rows = table.locator("tbody tr");
-        console.log('Amount of rows are: '+ await rows.count());
-        const secondRow = rows.filter({
-            has: page.locator('tr'),
-            hasText: "Conway"    
-        });
-        
-        await expect(page.locator('#table1')).toContainText('$50.00');
+        const sortedDueValues = await sortDescendingThroughUI(
+            dueHeader,
+            dueCells,
+            expectedDescending
+        );
+        await expect(sortedDueValues).toStrictEqual(expectedDescending);
 
+        const secondRowDue = table.locator('tbody tr').nth(1).locator('td').nth(3);
+        await expect(secondRowDue).toHaveText(expectedDescending[1]);
+    });
 
-        /*
-            IN THIS CASE I HAD SOME ISSUES WITH THE 2do Row Due column Validation:
-            My thought was something like : await expect(secondRow.locator('#table1')).toContainText('$50.00'); since "secondRow"
-            should filter the row of the lastname "Conway" and wih that validate there is a value $50.00 on Dues column, I know I can fix this with more time
-            I know where is the issue but I wanted to make it real , so I left an assertions of the actual second row of the sorted table
-            
-        */
+    test('Ordenar otra tabla en orden descendente y validar el Due de la fila 2', async ({ page }) => {
+        await page.goto(`${baseUrl}/tables`);
+
+        const table = page.locator('#table2');
+        const dueHeader = table.locator('thead th', { hasText: 'Due' });
+        const dueCells = table.locator('tbody tr td.dues');
+
+        const originalDueValues = await dueCells.allTextContents();
+        const expectedDescending = [...originalDueValues].sort(
+            (a, b) => toCurrencyNumber(b) - toCurrencyNumber(a)
+        );
+
+        const sortedDueValues = await sortDescendingThroughUI(
+            dueHeader,
+            dueCells,
+            expectedDescending
+        );
+        await expect(sortedDueValues).toStrictEqual(expectedDescending);
+
+        const secondRowDue = table.locator('tbody tr').nth(1).locator('td.dues');
+        await expect(secondRowDue).toHaveText(expectedDescending[1]);
     });
 
 });     
