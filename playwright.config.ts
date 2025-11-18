@@ -34,7 +34,7 @@ const config: PlaywrightTestConfig = {
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'on-first-retry',
-    headless: false,
+    headless: !!process.env.CI || false,
     screenshot: 'only-on-failure',
     video: 'retain-on-failure',
     // Disable browser for API tests
