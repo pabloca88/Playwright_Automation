@@ -4,8 +4,8 @@
 <p align="center">
   <img src="https://img.shields.io/badge/QA-Automation-blue?style=for-the-badge" />
   <img src="https://img.shields.io/badge/Playwright-Testing-green?style=for-the-badge" />
-  <img src="https://img.shields.io/badge/TypeScript-Developer-3178C6?style=for-the-badge" />
-  <img src="https://img.shields.io/badge/CI/CD-GitHub_Actions-black?style=for-the-badge" />
+  <img src="https://img.shields.io/badge/TypeScript-blue?style=for-the-badge" />
+  <img src="https://img.shields.io/badge/Git-Version%20Control-orange?style=for-the-badge" />
 </p>
 
 Welcome to my Playwright automation repository! Below you’ll find everything you need to install, configure, and run Playwright smoothly.
